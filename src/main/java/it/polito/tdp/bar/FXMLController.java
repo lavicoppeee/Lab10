@@ -6,12 +6,16 @@ package it.polito.tdp.bar;
 
 import java.net.URL;
 import java.util.ResourceBundle;
+
+import it.polito.tdp.bar.model.Model;
+import it.polito.tdp.bar.model.Statistiche;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextArea;
 
 public class FXMLController {
 
+	Model model;
     @FXML // ResourceBundle that was given to the FXMLLoader
     private ResourceBundle resources;
 
@@ -23,7 +27,13 @@ public class FXMLController {
 
     @FXML
     void handleSimula(ActionEvent event) {
-
+    	txtResult.clear();
+    	this.model.runSimulator();
+    	
+    	Statistiche stat = this.model.getStatistiche();
+    	txtResult.appendText("Clienti totali: " + stat.getClientiTOT()+"\n");
+    	txtResult.appendText("Clienti soddisfatti: " + stat.getSoddisfatti()+"\n");
+    	txtResult.appendText("Clienti insoddisfatti: " + stat.getInsoddisfatti()+"\n");
     }
 
     @FXML // This method is called by the FXMLLoader when initialization is complete
