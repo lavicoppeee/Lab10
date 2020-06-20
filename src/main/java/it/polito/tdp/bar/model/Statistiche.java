@@ -8,6 +8,10 @@ public class Statistiche {
 	private Integer insoddisfatti;
 	
 	
+	public Statistiche() {
+		super();
+	}
+
 	public Statistiche(Integer clientiTOT, Integer soddisfatti, Integer insoddisfatti) {
 		super();
 		this.clientiTOT = 0;
@@ -29,11 +33,16 @@ public class Statistiche {
 	
 	public void plusSoddisfatti(Integer plus) {
 		this.soddisfatti += plus;
-		this.clientiTOT += plus;
+		
 	}
 	
 	public void plusInsoddisfatti(Integer plus) {
 		this.insoddisfatti += plus;
+		
+	}
+	
+	public void plusTot(Integer plus) {
 		this.clientiTOT += plus;
+		
 	}
 }

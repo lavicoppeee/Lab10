@@ -6,10 +6,10 @@ public class Model {
 	
 	public void runSimulator() {
 		this.simulator = new Simulator();
-		this.simulator.run();
 	}
 	
 	public Statistiche getStatistiche() {
+		this.simulator.run();
 		return this.simulator.getStatistiche();
 	}
 }

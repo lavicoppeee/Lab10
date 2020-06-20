@@ -35,6 +35,12 @@ public class Event implements Comparable<Event> {
 		this.tavolo = tavolo;
 	}
 	
+	
+	
+	public Event() {
+		super();
+	}
+
 	public EventType getType() {
 		return type;
 	}

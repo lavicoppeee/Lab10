@@ -12,10 +12,17 @@ import it.polito.tdp.bar.model.Event.EventType;
 
 public class Simulator {
 
-	private PriorityQueue<Event> queue = new PriorityQueue<>();
+	    //coda degli eventi
+	    private PriorityQueue<Event> queue;
 	
-	//PARAMETRI SIMULAZIONE
+	    //PARAMETRI SIMULAZIONE
 		private Integer percentualeOccupazione = 50;
+		private int NUM_EVENTI = 2000;
+		private int T_MIN_ARRIVO_MAX = 10;
+		private int NUM_PERSONE_MAX = 10;
+		private int DURATA_MIN = 60;
+		private int DURATA_MAX = 120;
+		private double TOLLERANZA_MAX = 0.9;
 		
 		//MODELLO MONDO
 		private List<Tavolo> tavoli;
@@ -23,8 +30,9 @@ public class Simulator {
 		//VALORI DA CALCOLARE
 		private Statistiche statistiche;
 		
-		public Simulator() {
+		public void Simulator() {
 			this.tavoli = new ArrayList<>();
+			
 			this.tavoli.add(new Tavolo(4));
 			this.tavoli.add(new Tavolo(4));
 			this.tavoli.add(new Tavolo(4));
@@ -42,29 +50,14 @@ public class Simulator {
 			this.tavoli.add(new Tavolo(10));
 		}
 		
-	//PARAMETRI DELLA SIMULAZIONE
-	private int nTavoli=15;
-	
-	private final LocalDateTime oraApertura = LocalDateTime.now();
-	
-	private int nTavoliDisp; //numero tavoli ancora disponibili
-	private int bancone; //gente a bancone, illimitata
-	
-	
-	//METODI PER IMPOSTARE I PARAMENTRI
-	public void setnTavoli(int nTavoli) {
-		this.nTavoli = nTavoli;
-	}
 	
 	public void run() {
 		
-		//inizzializzo la situazione originale
-		this.nTavoli=this.nTavoliDisp;
-		this.bancone=0;
-		
+		queue= new PriorityQueue<Event>();
 		this.queue.clear();
+		this.statistiche=new Statistiche(); 
 		
-		LocalDateTime oraArrivoClienti=this.oraApertura;
+		LocalDateTime oraArrivoClienti=LocalDateTime.now();
 	
 			for(int i = 0; i < 2000; i++) {
 				Random random = new Random();
@@ -81,9 +74,11 @@ public class Simulator {
 			
 		while(!this.queue.isEmpty()) {
 			
-			Event e=this.queue.poll();
+			Simulator();
 			
-			processEvent(e);
+			Event e = this.queue.poll();
+			
+			this.processEvent(e);
 		}
 	}
 	
@@ -107,9 +102,8 @@ public class Simulator {
 			
 			if(tavolo == null) {
 				Random random = new Random();
-				float tolleranza = (float) (random.nextInt(10)/10.0);
-				
-				if(tolleranza <= e.getTolleranza()) {
+				float ran = (float) (random.nextInt(10)/10.0);
+				if(ran <= e.getTolleranza()) {
 					this.statistiche.plusSoddisfatti(nPersone);
 					this.createEvent(e, tavolo);
 				} else {
@@ -129,8 +123,6 @@ public class Simulator {
 			}
 			
 			break;
-			
-			
 			
 		}
 	}
